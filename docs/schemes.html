@@ -12,18 +12,12 @@
 
 <body>
     <header class="site-header">
-        <div class="header-inner">
-            <img src="assets/logo.svg" alt="DisaggMemLab" class="logo" />
-            <div>
-                <h1>Schemes — Disaggregated Memory Lab</h1>
-                <p class="tagline">Architecture diagrams and conceptual schemes</p>
-            </div>
-        </div>
+        <h1>Schemes — Disaggregated Memory Lab</h1>
+        <p class="tagline">Architecture diagrams and conceptual schemes</p>
         <nav class="site-nav">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="schemes.html">Schemes</a>
-            <a href="README.md">Repo</a>
         </nav>
     </header>
 
@@ -58,9 +52,9 @@
             <div class="diagram">
                 <div class="mermaid">
                     graph TD
-                    Host["Host CPU & Memory"] --- PCIe["PCIe/CXL Switch"]
-                    PCIe --- Pool["CXL Memory Pool"]
-                    Host --- Pool
+                    Host["Host CPU & Memory"] --> PCIe["PCIe/CXL Switch"]
+                    PCIe --> Pool["CXL Memory Pool"]
+                    Host --> Pool
                 </div>
             </div>
             <p>Key differences: CXL enables coherent, byte-addressable access, while NVMe-oF exposes block storage.</p>

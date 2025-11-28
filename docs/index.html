@@ -12,18 +12,14 @@
 
 <body>
     <header class="site-header">
-        <div class="header-inner">
-            <img src="assets/logo.svg" alt="DisaggMemLab" class="logo" />
-            <div>
-                <h1>Disaggregated Memory Lab (DisaggMemLab)</h1>
-                <p class="tagline">RDMA, NVMe‑oF and CXL experiments for CloudLab and bare‑metal labs</p>
-            </div>
-        </div>
         <nav class="site-nav">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="schemes.html">Schemes</a>
         </nav>
+    </header>
+    <h1>Disaggregated Memory Lab (DisaggMemLab)</h1>
+    <p class="tagline">RDMA, NVMe‑oF and CXL experiments for CloudLab and bare‑metal labs</p>
     </header>
 
     <main class="content">
@@ -74,11 +70,11 @@
                 <h3>CXL (conceptual) — byte-addressable remote memory</h3>
                 <div class="mermaid">
                     graph LR
-                    Host["Host CPU &amp; Memory"] --- PCIe["PCIe/CXL Switch"]
-                    PCIe --- Pool["CXL Memory Pool"]
-                    Host --- Pool
-                    note right of Pool: "CXL enables coherent, low-latency"
-                    note right of Host: "requires CXL-capable CPU, root complex"
+                    Host["Host CPU &amp; Memory"] --> PCIe["PCIe/CXL Switch"]
+                    PCIe --> Pool["CXL Memory Pool"]
+                    Host --> Pool
+                    note right of Pool: CXL enables coherent, low-latency
+                    note right of Host: requires CXL-capable CPU, root complex
                 </div>
             </div>
 
