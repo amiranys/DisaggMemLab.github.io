@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Disaggregated Memory System — Overview</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <img src="assets/logo.svg" alt="DisaggMemLab" class="logo" />
+            <div>
+                <h1>Disaggregated Memory Lab (DisaggMemLab)</h1>
+                <p class="tagline">RDMA, NVMe‑oF and CXL experiments for CloudLab and bare‑metal labs</p>
+            </div>
+        </div>
+        <nav class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="schemes.html">Schemes</a>
+            <a href="README.md">Repo</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section>
+            <h2>About this project</h2>
+            <p>
+                A compact lab project collecting documentation, CloudLab profiles and scripts to evaluate disaggregated
+                memory-style setups using RDMA, NVMe-over-Fabric (NVMe-oF) and (conceptually) CXL. The canonical
+                experiment
+                uses two bare‑metal nodes (server and initiator) connected via an experiment network; the server exports
+                a
+                local NVMe namespace or exposes resources over the fabric while the client runs benchmarks (fio,
+                perftest,
+                STREAM).
+            </p>
+            <p>
+                This static site is a minimal project page you can publish to GitHub Pages. The full repository contains
+                scripts in `scripts/`, CloudLab profiles in `cloudlab_profiles/`, and more advanced documentation in
+                `docs/`.
+            </p>
+        </section>
+
+        <section>
+            <h2>Architecture overview</h2>
+            <p>Compare the three main approaches covered in this project:</p>
+
+            <div class="diagram">
+                <h3>NVMe‑oF (TCP or RDMA)</h3>
+                <div class="mermaid">
+                    graph LR
+                    CI[Client<br />(Initiator)] -- NVMe-oF/TCP or RDMA --> FAB[Network Fabric]
+                    FAB --> SV[Server NVMe-oF Target]
+                    SV --> NVMe[Local NVMe SSD]
+                </div>
+            </div>
+
+            <div class="diagram">
+                <h3>RDMA direct memory operations (peer-to-peer)</h3>
+                <div class="mermaid">
+                    graph LR
+                    C[Client] -- ibverbs/RDMA --> HCA[HCA / RDMA Fabric]
+                    HCA --> S[Server]
+                    S --> Mem[Server DRAM]
+                </div>
+            </div>
+
+            <div class="diagram">
+                <h3>CXL (conceptual) — byte-addressable remote memory</h3>
+                <div class="mermaid">
+                    graph LR
+                    Host[Host CPU &amp; Memory] --- PCIe[PCIe/CXL Switch]
+                    PCIe --- Pool[CXL Memory Pool]
+                    Host --- Pool
+                    note right of Pool: CXL enables coherent, low-latency
+                    note right of Host: requires CXL-capable CPU, root complex
+                </div>
+            </div>
+
+            <p>
+                Notes: CXL provides a different programming model (byte-addressable, coherent memory) compared to block
+                storage over NVMe-oF. CXL hardware and firmware support is required; public CloudLab catalogs do not
+                generally advertise CXL nodes — contact CloudLab staff if CXL is required for your experiments.
+            </p>
+        </section>
+
+        <section>
+            <h2>Sequence (NVMe-oF example)</h2>
+            <div class="diagram">
+                <div class="mermaid">
+                    sequenceDiagram
+                    participant S as Server
+                    participant N as Network
+                    participant C as Client
+                    S->>N: export NVMe namespace (nvmet configfs)
+                    C->>N: nvme discover
+                    C->>N: nvme connect
+                    C->>S: IO (fio/perftest)
+                    S->>D: local NVMe IO
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>How to use this page</h2>
+            <p>
+                This `site/` folder is self-contained. To publish as a single-folder Pages site, copy the contents of
+                `site/` into a repository and enable GitHub Pages. The diagrams are rendered client-side via Mermaid
+                CDN.
+            </p>
+            <p>
+                If you prefer to avoid external CDNs, replace Mermaid blocks with pre-rendered SVG files placed into
+                `site/assets/` and update the HTML to reference them.
+            </p>
+        </section>
+
+        <section>
+            <h2>Included files</h2>
+            <ul>
+                <li>`index.html` — this page</li>
+                <li>`styles.css` — simple styling</li>
+                <li>`README.md` — usage notes for the site folder</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>For full scripts, CloudLab profiles and advanced documentation see the full repository. Contact the repo
+                owner if you need help reserving hardware.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

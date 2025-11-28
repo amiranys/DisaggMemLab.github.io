@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>About — DisaggMemLab</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <img src="assets/logo.svg" alt="DisaggMemLab" class="logo" />
+            <div>
+                <h1>Disaggregated Memory Lab (DisaggMemLab)</h1>
+                <p class="tagline">Project background and goals</p>
+            </div>
+        </div>
+        <nav class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="schemes.html">Schemes</a>
+            <a href="README.md">Repo</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section>
+            <h2>Project name</h2>
+            <p><strong>Disaggregated Memory Lab (DisaggMemLab)</strong> — an experimental framework and repository for
+                exploring remote memory and networked storage approaches using RDMA, NVMe-over-Fabric and, conceptually,
+                CXL.</p>
+        </section>
+
+        <section>
+            <h2>Objectives</h2>
+            <ul>
+                <li>Provide reproducible scripts and CloudLab profiles to deploy experiments.</li>
+                <li>Measure and compare latency, throughput and CPU overhead of different transports.</li>
+                <li>Document practical steps to set up nvmet targets, initiators and measure performance.</li>
+                <li>Collect artifacts and troubleshooting tips for researchers and students.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Audience</h2>
+            <p>Researchers, students and engineers interested in disaggregated memory, networked storage, and
+                performance
+                analysis on bare‑metal testbeds like CloudLab.</p>
+        </section>
+
+        <footer>
+            <p>Back to <a href="index.html">home</a> — see the repository for scripts and full documentation.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

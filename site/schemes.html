@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Schemes — DisaggMemLab</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'default' });</script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <img src="assets/logo.svg" alt="DisaggMemLab" class="logo" />
+            <div>
+                <h1>Schemes — Disaggregated Memory Lab</h1>
+                <p class="tagline">Architecture diagrams and conceptual schemes</p>
+            </div>
+        </div>
+        <nav class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="schemes.html">Schemes</a>
+            <a href="README.md">Repo</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section>
+            <h2>NVMe-oF topology</h2>
+            <div class="diagram">
+                <div class="mermaid">
+                    graph TD
+                    Client[Client Initiator] -- TCP / RDMA --> Switch[Network Fabric / Switch]
+                    Switch --> Server[Server: nvmet target]
+                    Server --> NVME[Local NVMe SSD]
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>RDMA direct operations</h2>
+            <div class="diagram">
+                <div class="mermaid">
+                    graph TD
+                    C[Client App] -- ibverbs API --> HCA[Client HCA]
+                    HCA -- RDMA --> HCA2[Server HCA]
+                    HCA2 --> SrvMem[Server DRAM]
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>CXL conceptual topology</h2>
+            <p>The following diagram is conceptual — CXL requires specialized hardware and firmware support.</p>
+            <div class="diagram">
+                <div class="mermaid">
+                    graph TD
+                    Host[Host CPU & Memory] --- PCIe[PCIe/CXL Switch]
+                    PCIe --- Pool[CXL Memory Pool]
+                    Host --- Pool
+                </div>
+            </div>
+            <p>Key differences: CXL enables coherent, byte-addressable access, while NVMe-oF exposes block storage.</p>
+        </section>
+
+        <footer>
+            <p>Return <a href="index.html">home</a> or view the repository for runnable scripts.</p>
+        </footer>
+    </main>
+</body>
+
+</html>
